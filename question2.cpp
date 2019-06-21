@@ -6,41 +6,17 @@
 using namespace std;
 
 int transformation(vector<int> A, vector<int> B) {
-//   vector<int> A = {4, 2, 42, 3, 5, 1};
-//   vector<int> B = {43, 1, 2, 3, 4, 5};
-
-  // vector<int> A = {1, 2, 7};
-  // vector<int> B = {7, 2, 1};
-
-  // vector<int> A = {0, 4, 7, 1, 2, 6, 3, 5};
-  // vector<int> B = {0, 1, 2, 3, 4, 5, 6, 7};
-
-  // vector<int> A = {3, 7, 9, 4};
-  // vector<int> B = {4, 7, 1, 3};
-
-  // vector<int> A = {1};
-  // vector<int> B = {2, 3};
-
-  // vector<int> A = {0, 4, 7, 6, 3, 5};
-  // vector<int> B = {0, 1, 2, 7, 11, 4, 5};
-
-//   vector<int> A = {0, 4, 7, 6, 3, 5, 45, 77, 55, 321, 781, 71};
-//   vector<int> B = {0, 1, 2, 321, 55, 7, 11, 4, 5};
-    
-    // for (int i = 0; i < A.size(); i++){
-    //     cout << A[i] << " ";
-    // }
-    // cout << endl;
-    // for (int i = 0; i < B.size(); i++){
-    //     cout << B[i] << " ";
-    // }
-    
     
   int ans = 0;
   unordered_map<int, int> cA, cB, rank;
+
+  // Create hashmap from 2 input arrays
   for (int i = 0; i < A.size(); i++) cA[A[i]] = i;
   for (int i = 0; i < B.size(); i++) cB[B[i]] = i;
 
+  // Create 2 vectors, a and b, 
+  // a and b are the common elements among A and B (maintaining the relative order)
+  // Increment ans for extra elements in A and B (Addition and deletion operation)
   vector<int> a, b;
   for (int i = 0; i < A.size(); i++) {
     if (cB.find(A[i]) != cB.end()) {
@@ -57,6 +33,9 @@ int transformation(vector<int> A, vector<int> B) {
       ans++;
   }
 
+  // Minimum number of moves required to convert a to b.
+  // Approach: We use the technique of Longest Increasing Subsequence method on vector a. 
+  // We compare on the basis of rank of vector b.
   for (int i = 0; i < b.size(); i++) rank[b[i]] = i;
 
   vector<int> d(b.size() + 1, INF);
@@ -91,15 +70,6 @@ int main() {
         cin>>l2[i];
       
     }
-    
-    // for (int i = 0; i < l1.size(); i++){
-    //     cout << l1[i] << " ";
-    // }
-    // cout << endl;
-    // for (int i = 0; i < l2.size(); i++){
-    //     cout << l2[i] << " ";
-    // }
-    
     
     transformation(l1, l2);
     
